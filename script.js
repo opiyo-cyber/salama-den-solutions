@@ -29,11 +29,48 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Form submission handler
 const contactForm = document.querySelector('.contact-form form');
+const API_URL = 'http://localhost:5000/api';
+
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        alert('Thank you for your message! We will get back to you soon.');
-        contactForm.reset();
+        
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+        
+        const formData = {
+            name: contactForm.querySelector('input[type="text"]').value,
+            email: contactForm.querySelector('input[type="email"]').value,
+            phone: contactForm.querySelector('input[type="tel"]').value,
+            message: contactForm.querySelector('textarea').value
+        };
+        
+        try {
+            const response = await fetch(`${API_URL}/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                alert(data.message || 'Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            } else {
+                alert(data.message || 'Failed to send message. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to send message. Please try again or contact us directly.');
+        } finally {
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+        }
     });
 }
 
