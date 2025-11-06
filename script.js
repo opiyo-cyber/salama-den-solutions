@@ -29,7 +29,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Form submission handler
 const contactForm = document.querySelector('.contact-form form');
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://salama-den-backend.onrender.com/api';
 
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
