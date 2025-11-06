@@ -73,20 +73,20 @@ body {
 .hero {
     background: linear-gradient(135deg, #1a472a 0%, #2d6a3e 100%);
     color: white;
-    padding: 150px 0 100px;
+    padding: 100px 0 60px;
     text-align: center;
     position: relative;
 }
 
 .hero-title {
-    font-size: 3rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
     animation: fadeInUp 1s;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 0;
     animation: fadeInUp 1.2s;
 }
 
